@@ -1,0 +1,148 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+
+
+?>
+
+<?php 
+$_product = $block->getProduct(); 
+$blockObj= $block->getLayout()->createBlock('Mycompany\Webservice\Block\Sidemenu');
+$blockObj->setCacheable(false);
+$assoc_id = $blockObj->getLoggedinUsers();
+
+$active_features = $blockObj->getActiveFeatures($assoc_id);
+
+
+
+/*
+if(isset($active_features->status) && $active_features->status == 404){
+    $dis_status = "disabled = true";
+    $buttonTitle = __('API Error'); 
+} else {
+*/
+
+if(isset($active_features) && !in_array($_product->getSku(), $active_features)) {
+    $buttonTitle = __('INSTALL');
+    $dis_status = '';
+    $cls = ""; 
+} else {
+  
+    $dis_status = '';
+    $cls = " installed"; 
+    $buttonTitle = __('CONFIGURE'); 
+}
+
+
+
+
+$product_available = $blockObj->getProductDetails($assoc_id);
+
+$sku = $_product->getSku();
+$x = array();
+foreach($product_available as $key=>$val){
+    
+    if(substr($sku,0,2) == $key && $val==1){
+      $x[] = 1;   
+    } 
+}
+
+if(count($x)<1){
+    $dis_status = "disabled = true";
+    $buttonTitle = __('Not Enabled'); 
+}
+
+// }
+
+/*
+$buttonTitle = __('INSTALL');
+$dis_status = '';
+*/
+
+
+?>
+
+
+
+    <div class="actions">
+    
+        <img class="prod-image" src="<?php  echo $block->getUrl('pub/media/catalog').'product'.$_product->getImage(); ?>" >
+
+        <?php 
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+            $base = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+            $categories = $product->getCategoryIds(); /*will return category ids array*/
+            
+                    $psku=strtolower($product->getSku());
+                    if($psku){
+                        if (strpos($psku, 'cc_') !== false) {
+                            $prodclass= 'career';
+                        }else if (strpos($psku, 'ams_') !== false) {
+                            $prodclass= 'ams';
+                        }else{
+                            $prodclass='';
+                        }
+                    }            
+        
+            if(count($categories) > 0){
+                $cat = $objectManager->create('Magento\Catalog\Model\Category')->load($categories[0]);
+                $link = $base->getStore()->getBaseUrl().$cat->getUrlPath().'.html';
+                ?><a href='<?php echo $link; ?>' class='product-main-category <?php echo $prodclass?>'><?php echo $cat->getName(); ?></a><?php
+            }
+ 
+        ?>
+     
+        <?php  if ($assoc_id > 0): ?>
+            
+            <button  <?php echo $dis_status; ?> class="installbutton<?php echo $cls;?>"  type="button"
+                    title="<?php  echo $buttonTitle ?>"                    
+                    id="product-addtocart-button">
+                <span ><?php  echo $buttonTitle ?></span>
+            </button>            
+        <?php endif; ?>
+           
+    </div>
+
+
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/product/view/validation": {
+                "radioCheckboxClosest": ".nested"
+            }
+        }
+    }
+</script>
+<?php if (!$block->isRedirectToCartEnabled()) : ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "catalogAddToCart": {
+                "bindSubmit": false
+            }
+        }
+    }
+</script>
+<?php endif; ?>
+
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "wishlist": {
+                    "component": "Magento_Wishlist/js/view/wishlist"
+                }
+            }
+        }
+    }
+}
+</script>

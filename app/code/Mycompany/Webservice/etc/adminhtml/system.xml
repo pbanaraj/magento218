@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mycompany Webservice
+ *
+ * @author      tavant developer
+ * @category    Mycompany
+ * @package     Mycompany_Webservice
+ * 
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Config/etc/system_file.xsd">
+    <system>
+        <section id="service_config" translate="label" sortOrder="1000" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Custom Web Service Configuration</label>
+            <tab>customer</tab>
+            <resource>Mycompany_Webservice::service_config</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Rest API Configuration</label>                
+                
+                  <field id="naylor_url" translate="label comment" sortOrder="100" showInDefault="1" type="text">
+                    <label>Naylor API Url</label>
+                    <comment><![CDATA[Specify API Url used to call Naylor's Rest Web services]]></comment>
+                </field>
+                
+                <field id="naylor_jwt_key" translate="label comment" sortOrder="100" showInDefault="1" type="text">
+                    <label>Naylor JWT Sign Key</label>
+                    <comment><![CDATA[Specify JWT Sign Key For API Calls]]></comment>
+                </field>
+                
+                <field id="naylor_enc_key" translate="label comment" sortOrder="100" showInDefault="1" type="text">
+                    <label>Encript/Decript Key</label>
+                    <comment><![CDATA[Specify Key To Decrypt Contents on Login Requests]]></comment>
+                </field>
+                
+                <field id="naylor_config_key" translate="label comment" sortOrder="110" showInDefault="1" type="text">
+                    <label>Configure URL</label>
+                    <comment><![CDATA[Specify Config URL for Product Details Page]]></comment>
+                </field>
+                
+            </group>
+            
+            <group id="emailconfig" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>SMTP Configuration</label>                
+                
+                  <field id="host" translate="label comment" sortOrder="20" showInDefault="1" type="text">
+                    <label>Host</label>
+                    <comment><![CDATA[Specify API Url used to call Naylor's Rest Web services]]></comment>
+                </field>
+                
+                <field id="ssl" translate="label comment" sortOrder="40" showInDefault="1" type="text">
+                    <label>SSL(ssl/tls)</label>
+                    <comment><![CDATA[Security: ssl/tls]]></comment>
+                </field>
+                
+                <field id="authtype" translate="label comment" sortOrder="60" showInDefault="1" type="text">
+                    <label>login/none</label>
+                    <comment><![CDATA[Specify Authtype login/none]]></comment>
+                </field>
+                
+                <field id="port" translate="label comment" sortOrder="65" showInDefault="1" type="text">
+                    <label>Port</label>
+                    <comment><![CDATA[Specify Port]]></comment>
+                </field>
+                
+                             
+                <field id="username" translate="label comment" sortOrder="70" showInDefault="1" type="text">
+                    <label>Username</label>
+                    <comment><![CDATA[Specify Authtype login/none]]></comment>
+                </field>
+                
+                <field id="password" translate="label comment" sortOrder="100" showInDefault="1"  type="obscure">
+                    <label>Password</label>
+                    <comment><![CDATA[Password]]></comment>
+                </field>
+                
+            </group>
+            
+            <group id="wscronconfig" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Cron Configuration</label>                
+                
+                  <field id="cron_display_category" translate="label comment" sortOrder="20" showInDefault="1" type="text">
+                    <label>Cron - Update Display Category</label>
+                    <comment><![CDATA[Set Cron Tab Schedule - Update Display Category(0 0 * * *)]]></comment>
+                </field>
+                
+                <field id="cron_install_product" translate="label comment" sortOrder="40" showInDefault="1" type="text">
+                    <label>Cron - Install Product</label>
+                    <comment><![CDATA[Set Cron Schedule - Install Product: (*/5 * * * *)]]></comment>
+                </field>               
+                
+                
+            </group>
+            
+        </section>
+    </system>
+</config>

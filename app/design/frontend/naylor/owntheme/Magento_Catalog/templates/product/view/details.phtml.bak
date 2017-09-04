@@ -1,0 +1,125 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+
+
+?>
+
+<?php 
+  $_product = $block->getProduct();
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+$category = $objectManager->create('Magento\Catalog\Model\Category');
+
+
+  
+?>
+<div class="details col-md-9">
+        <h2><?php echo $_product->getName(); ?></h2>
+        <?php
+
+           $blockObj= $block->getLayout()->createBlock('Mycompany\Webservice\Block\Sidemenu');
+	    $displ_url = $blockObj->getCategoryUrlByName($_product->getDisplayCategory());
+
+                                        if($displ_url == '' || $displ_url=='#'){
+                                           $displ_url = "/catalogsearch/result/?q=".$_product->getDisplayCategory();
+                                        } 
+          
+                ?><h3><a class="display-category" href='<?php echo $displ_url ?>'><?php echo  $block->escapeHtml($_product->getDisplayCategory()); ?></a></h3><?php
+         
+            
+            
+            echo $_product->getDescription();
+
+
+
+
+
+        ?>
+
+<?php
+   echo $this->getLayout()->createBlock("\WeltPixel\OwlCarouselSlider\Block\Slider\Productsbyid")->setProductsId($_product->getId())->toHtml();
+?> 
+
+                           
+								
+<script>
+var sku='<?php echo $_product->getSku(); ?>';
+require(['jquery', 'lightbox','jquery.bootstrap'], function($){  
+	
+	 /*
+	 $.post('/customers/index/Productsbyassocid',{'sku':sku},function(data1){
+     	var data1 = JSON.parse(data1);
+
+     	
+     	
+     console.log(data1.active[0]);
+     console.log(data1.inactive[0]);
+     console.log(data1.disp_cat[0].display_category_name);
+     
+     	 
+     	 
+      
+     	 if(parseInt(data1.active.length)!=0 && data1.active[0] == sku){            	
+     		$('#product-addtocart-button').attr('disabled','true');
+     		
+         } else if(parseInt(data1.active.length) ==0 && parseInt(data1.active.length) == 0){
+        	 $('#product-addtocart-button').attr('disabled','true');        	 
+         }
+      
+    })*/
+    
+
+//     $('#installModal').on('show.bs.modal', function (event) {
+     $('.installbutton').on('click', function (event) {
+        $.post('/customers/index/install',{'sku':sku},function(data){
+        	var data = $.parseJSON(data);
+                
+            if(data.length>1 && data.indexOf(sku)!=-1){            	
+        		$('#product-addtocart-button').attr('disabled','true');
+ 
+            }else{
+                //$('#installModal').modal('show');
+            }
+            $('#installModal').modal('show');
+         
+       })
+    	 
+      })
+
+
+});
+
+
+
+</script>
+
+     
+								<!-- Modal -->
+								<div class="modal fade" id="installModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-close"></span></button>
+												<h4 class="modal-title" id="myModalLabel">Congratulations</h4>
+											</div>
+											<div class="modal-body">
+												<p>Credly has been installed within your Naylor Careers product and is ready to be configured.</p>
+
+												<p>Please proceed to the “Features Settings” within your Careers admin system to configure and activate this feature.</p>
+
+												<p>You can get to all your existing product features from the “Features Settings” page as well as from the Connect Marketplace.</p>
+
+												<div class="btn-row"><a href="/" class="btn pull-left go-back">Continue Browsing the Marketplace</a> <a href="/careers-config.html" class="btn pull-right ft-settings">Features Settings</a></div>
+											</div>
+											
+										</div>
+									</div>
+								</div><!-- end modal -->
+
+</div>
+

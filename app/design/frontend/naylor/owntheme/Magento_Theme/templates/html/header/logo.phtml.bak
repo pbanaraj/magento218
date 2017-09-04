@@ -1,0 +1,52 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @var \Magento\Theme\Block\Html\Header\Logo $block
+ */
+?>
+<?php $storeName = $block->getThemeName() ? $block->getThemeName() : $block->getLogoAlt();?>
+
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="logo">
+			<a href="<?php echo $block->getUrl(''); ?>" title="<?php echo $storeName ?>">
+			<img src="<?php echo $block->getLogoSrc() ?>"
+             alt="<?php echo $block->getLogoAlt() ?>"
+             <?php echo $block->getLogoWidth() ? 'width="' . $block->getLogoWidth() . '"' : '' ?>
+             <?php echo $block->getLogoHeight() ? 'height="' . $block->getLogoHeight() . '"' : '' ?>
+        		/>
+        	</a>
+		</div>
+	</div><!-- end col-md-6 -->
+	<div class="col-md-6">
+		<div class="top-nav-wrap">
+			<div class="top-nav">
+				<ul>
+					<li><a href="<?php echo $this->getUrl('core-features');?>">Core Features</a></li>
+					<li><a href="<?php echo $this->getUrl('add-ons');?>">Add-Ons</a></li>
+					<li><a href="<?php echo $this->getUrl('integrations');?>">Integrations</a></li>
+				</ul>
+			</div>
+			<button class="help" title="Help" alt="Help">Help</button>
+			<button class="settings" title="Settings" alt="Settings">Settings</button>
+			
+			<!-- <div class="login" title="Login" alt="Login">
+				<button class="login">Login</button>
+				<div class="login-info">
+					<h4>Login</h4>
+					<input type="text" placeholder="Username">
+					<input type="text" placeholder="Password">
+					<a href="#" class="forgot">Forgot Password?</a>
+					<button class="login-submit">Login</button>
+				</div>
+			</div> -->
+		</div>
+	</div><!-- end col-md-6 -->
+</div><!-- end row -->

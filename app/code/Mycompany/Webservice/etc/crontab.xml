@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="ws_update">        
+        <!--  to run once a day -->         
+        
+        <job name="update_display_attributes"  instance="Mycompany\Webservice\Cron\UpdateDisplayAttribute"  method="execute">
+            <!--  <schedule></schedule> -->
+            <config_path>service_config/wscronconfig/cron_display_category</config_path>        
+        </job>        
+        
+    </group>
+
+<group id="ws_install">                       
+        <!--  to run every minute  -->
+        <job name="process_installs"  instance="Mycompany\Webservice\Cron\ProcessInstalls"  method="execute">
+                 <!--  <schedule></schedule> -->
+            <config_path>service_config/wscronconfig/cron_install_product</config_path>       
+        </job>
+        
+    </group>
+
+</config>

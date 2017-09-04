@@ -1,0 +1,71 @@
+<section class="categories" id="pin2" style="position:fixed">
+<?php 
+/*$objectManager =  \Magento\Framework\App\ObjectManager::getInstance(); 
+$categoryHelper = $objectManager->get('\Magento\Catalog\Helper\Category');
+$categories = $categoryHelper->getStoreCategories();*/
+
+// $categories = $block->getStoreCategories();
+//foreach($categories as $category){
+	// echo $block->getCategoryById($category->getId())->getUrl();
+//}
+?>
+	<ul class="cat-list">
+		<?php 
+		   $categories = $block->getStoreCategories();
+		   $colors = array('background:#40AD50;', 'background:#EFAC1F;', 'background:#005189;');
+		   $i = 0;
+           foreach($categories as $category){
+           	
+		?>
+		   <li class="top"><a href="<?php echo $block->getCategoryById($category->getId())->getUrl();  ?>" style="<?php echo $colors[$i]; ?>"><?php echo $category->getName();?></a></li>
+		<ul>
+		
+		<?php
+			$childrens = $block->getAllChildrens(true,$category->getId());
+			// print_r($children);
+			foreach($childrens as $childs){
+				$child_details = $block->getCategoryById($childs); 
+				if($child_details->getIncludeInMenu()==0){ continue; }/* Only showing Include in Manu */
+				$level = $child_details->getLevel();
+				// print_r($child_details->getData());
+				if($level>2) {
+		?>		
+			<li><a href="<?php echo $block->getCategoryById($childs)->getUrl();  ?>"><?php echo $child_details->getName();?></a></li>
+			<?php  } } ?>
+			
+		</ul>
+
+
+		<?php
+			$i++;
+			if($i==2)
+				{ $i=0; }
+	      }
+        ?>
+		<!--<ul>
+			<li>Member Engagement</li>
+			<li>Revenue Gengeration</li>
+			<li>Data &amp; Analytics</li>
+			<li>Security &amp; Privacy</li>
+			<li>Program Administration</li>
+		</ul>
+
+		<li class="top ams"><a href="ams-solutions.html">AMS Solutions</a></li>
+		<ul>
+			<li>Member Engagement</li>
+			<li>Revenue Gengeration</li>
+			<li>Data &amp; Analytics</li>
+			<li>Security &amp; Privacy</li>
+			<li>Program Administration</li>
+		</ul> -->
+	
+	</ul>
+	
+	<!-- <div class="search-wrap">
+		<div class="search">
+			<input type="text" name="search" placeholder="Search">
+			<button type="submit" class="search-btn"><span class="fa fa-search"></span></button>
+		</div>
+	</div>
+ -->
+<!-- </section> Commenting since it'll close in form.mini.phtml under Magento_Search -->

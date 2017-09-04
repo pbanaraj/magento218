@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\Model\ResourceModel\CustomerRepository">
+        <plugin name="diglin_username" type="Diglin\Username\Plugin\Model\ResourceModel\CustomerRepositoryPlugin" sortOrder="1" />
+    </type>
+    <preference for="Magento\Customer\Controller\Account\ForgotPasswordPost" type="Diglin\Username\Controller\Account\ForgotPasswordPost" />
+
+</config>

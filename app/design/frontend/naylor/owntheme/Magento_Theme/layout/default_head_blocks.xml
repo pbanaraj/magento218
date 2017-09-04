@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+    	<css src="css/styles-m.css" order="100" />
+        <css src="css/styles-l.css" media="screen and (min-width: 768px)" order="101" />
+        <css src="css/print.css" media="print" order="102" />
+    	<css src="css/bootstrap.css" order="103" />
+        <css src="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" src_type="url" order="104" />
+        <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js" src_type="url"/> -->
+        <script src="js/naylor.js"/>
+        <link rel="stylesheet" type="text/css" src="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i" src_type="url" order="105" />
+		<css src="css/magento.css" order="106" />
+    </head>
+</page>

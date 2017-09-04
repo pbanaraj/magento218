@@ -1,0 +1,143 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Template for displaying products list widget
+ *
+ * @var $block \Magento\CatalogWidget\Block\Product\ProductsList
+ */
+?>
+<?php if ($exist = ($block->getProductCollection() && $block->getProductCollection()->getSize())):?>
+<?php
+    $type = 'widget-product-grid';
+
+    $mode = 'grid';
+
+    $image = 'new_products_content_widget_grid';
+    $title = $block->getTitle() ? __($block->getTitle()) : '';
+    $items = $block->getProductCollection()->getItems();
+    
+    $showWishlist = true;
+    $showCompare = true;
+    $showCart = true;
+    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::DEFAULT_VIEW;
+    $description = false;
+    
+    $blockObj= $block->getLayout()->createBlock('Mycompany\Webservice\Block\Sidemenu');
+    $assoc_id = $blockObj->getLoggedinUsers();
+    $active_features = $blockObj->getActiveFeatures($assoc_id);
+    
+   
+   
+?>
+        <?php if ($title):?>
+        <div class="block-title">
+            <strong><?php /* @escapeNotVerified */ echo $title; ?></strong>
+        </div>
+        <?php endif ?>
+            <?php /* @escapeNotVerified */ echo '<!-- ' . $image . '-->' ?>
+            <!--<div class="products-<?php /* @escapeNotVerified */ echo $mode; ?> <?php /* @escapeNotVerified */ echo $mode; ?>">-->
+                <!--<ol class="product-items <?php /* @escapeNotVerified */ echo $type; ?>">-->
+                    <?php $iterator = 1; ?>
+                                       <?php 
+                    $catname = '';
+                    $prodclass = '';
+                    foreach ($items as $_item):  
+                 
+                    $psku=strtolower($_item->getSku());
+                    if($psku){
+                        if (strpos($psku, 'cc_') !== false) {
+                            $prodclass= 'career';
+                        }else if (strpos($psku, 'ams_') !== false) {
+                            $prodclass= 'ams';
+                        }else{
+                            $prodclass='';
+                        }
+
+                    }                    
+                                            
+                        
+                    $categories = $_item->getCategoryIds();                  
+                    
+                    $blockObj= $block->getLayout()->createBlock('Mycompany\Webservice\Block\Sidemenu');
+
+                    foreach($categories as $catid){
+                    $category =   $blockObj->getCategoryById($catid);
+                    
+                    $level = $category->getLevel();
+                    $cname=$category->getName();
+
+                    if($level == 3 && $cname != ''){
+                        $catname =  $cname;                      
+                    } 
+                     
+                    }
+                    ?>
+                        <?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<div class="col-md-3 col-sm-4 col-xs-6">' : '</div><div class="col-md-3 col-sm-4 col-xs-6">' ?>
+                        <!--<div class="product career">-->
+                           <?php echo '<div class="product '.$prodclass.'">';?>
+                        <div class="icon">
+                        <?php if ($active_features && !in_array($_item->getSku(), $active_features)) { ?>
+                            <a href="<?php echo $block->getProductUrl($_item) ?>">
+                                <?php echo $block->getImage($_item, $image)->toHtml(); ?>
+                            </a>
+                            <?php } else { ?>
+							<a href="#">
+                                <?php echo $block->getImage($_item, $image)->toHtml(); ?>
+                            </a>
+                          <?php } ?>
+                        </div>
+                                <h3>
+                                    <a title="<?php echo $block->escapeHtml($_item->getName()) ?>"
+                                       href="<?php /* @escapeNotVerified */ echo $block->getProductUrl($_item) ?>"
+                                       class="product-item-link">
+                                        <?php echo $block->escapeHtml($_item->getName()) ?>
+                                    </a>
+                                </h3>
+                                <?php
+                                echo '<div class="tag">'.$catname.'</div>';//$block->getProductPriceHtml($_item, $type);
+                                ?>
+
+                                <?php if ($templateType): ?>
+                                    <?php echo $block->getReviewsSummaryHtml($_item, $templateType) ?>
+                                <?php endif; ?>
+                                
+                                <?php                                
+                                    if ($active_features && !in_array($_item->getSku(), $active_features)) { 
+                                    // $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+                                    // $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()]);
+                                
+                                    ?>
+                                    
+                                    <button class=""
+                                                                data-post='<?php  // echo $postData; ?>'
+                                                                type="button" title="<?php  echo __('INSTALL') ?>">
+                                                           <span><?php echo __('INSTALL') ?></span>
+                                                        </button>
+                                
+                                <?php } else { ?>
+                                
+                                <div class="stock unavailable"><button disabled="" class=""
+                                                                data-post='<?php  // echo $postData; ?>'
+                                                                type="button" title="<?php  echo __('INSTALLED') ?>">
+                                                            <?php echo __('INSTALLED') ?>
+                                                        </button></div>
+                                
+                                <?php } ?>
+  
+                                
+                        </div>
+                        <?php echo($iterator == count($items)+1) ? '</div>' : '' ?>
+                    <?php endforeach ?>
+
+            <?php echo $block->getPagerHtml() ?>
+
+<?php endif;?>
+

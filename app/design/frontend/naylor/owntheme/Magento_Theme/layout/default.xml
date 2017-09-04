@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="default_head_blocks"/>
+    <body>
+        <referenceContainer name="header.container">
+            
+            <container name="header.panel.wrapper" htmlClass="" htmlTag="div" before="-" remove="true">
+                <!-- <container name="header.panel" label="Page Header Panel" htmlTag="div" htmlClass="panel header">
+                    <block class="Magento\Framework\View\Element\Template" name="skip_to_content" template="Magento_Theme::html/skip.phtml">
+                        <arguments>
+                            <argument name="target" xsi:type="string">contentarea</argument>
+                            <argument name="label" translate="true" xsi:type="string">Skip to Content</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Store\Block\Switcher" name="store_language" as="store_language" template="switch/languages.phtml"/>
+                    <block class="Magento\Framework\View\Element\Html\Links" name="top.links">
+                        <arguments>
+                            <argument name="css_class" xsi:type="string">header links</argument>
+                        </arguments>
+                    </block>
+                </container> -->
+            </container>
+            <container name="header-wrapper" label="Page Header" as="header-wrapper" htmlTag="div" htmlClass="container">
+                <block class="Magento\Theme\Block\Html\Header\Logo" name="logo">
+                    <arguments>
+                        <argument name="logo_img_width" xsi:type="number">189</argument>
+                        <argument name="logo_img_height" xsi:type="number">64</argument>
+                    </arguments>
+                </block>
+            </container>
+            <!-- <container name="main-homeslider" htmlTag="div" htmlClass="homeslider-container">
+                <block class="Magento\Framework\View\Element\Template" name="homeslider" template="Magento_Theme::html/homeslider.phtml"/>
+            </container> -->
+        </referenceContainer>
+        <!-- <referenceContainer name="page.top" remove="true">
+            <block class="Magento\Theme\Block\Html\Footer" name="copyright" template="html/copyright.phtml"/>
+        </referenceContainer> -->
+        
+        <!-- <referenceContainer name="columns.top" remove="true">
+            <block class="Magento\Framework\View\Element\Template" name="navigation.sections" before="-" template="Magento_Theme::html/sections.phtml" remove="true"/>
+            <block class="Magento\Theme\Block\Html\Title" name="page.main.title" template="html/title.phtml" remove="true"/>
+        </referenceContainer> -->
+        
+        <referenceContainer name="columns.top">
+            <block class="Magento\Framework\View\Element\Template" name="navigation.sections" before="-" template="Magento_Theme::html/sections.phtml" remove="true"/>
+            <block class="Magento\Theme\Block\Html\Title" name="page.main.title" template="html/title.phtml" remove="true"/>
+            <container name="page.messages" htmlTag="div" htmlClass="page messages">
+                <block class="Magento\Framework\View\Element\Template" name="ajax.message.placeholder" template="Magento_Theme::html/messages.phtml"/>
+                <block class="Magento\Framework\View\Element\Messages" name="messages" as="messages" template="Magento_Theme::messages.phtml"/>
+            </container>
+        </referenceContainer>
+
+        <referenceContainer name="main">
+            <container name="content.top" label="Main Content Top">
+                <block class="Mycompany\Webservice\Block\Sidemenu" name="sidemenu" template="Magento_Theme::html/sidemenu.phtml"/>
+                <block class="Magento\Framework\View\Element\Template" name="side.search" as="sideSearch" template="Magento_Search::form.mini.phtml" />
+            </container>
+            <container name="content" label="Main Content Area"/>
+            <container name="content.aside" label="Main Content Aside"/> 
+            <container name="content.bottom" label="Main Content Bottom"/>
+        </referenceContainer>
+
+ 	<referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\FormKey" name="formkey"/>
+        </referenceContainer>
+
+        <referenceContainer name="footer-container">
+            <container name="footer" as="footer" label="Page Footer" htmlTag="div" htmlClass="footer content">
+                <block class="Magento\Theme\Block\Html\Footer" name="copyright" template="html/copyright.phtml"/>
+            </container>
+        </referenceContainer>
+
+
+    </body>
+</page>
